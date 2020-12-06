@@ -37,7 +37,10 @@ const questions = [
       message: "What is your email?",
     },
     
-  
+    this.employee = new Employee ()
+
+
+
   // function to write HTML file
   function render(fileName, answers) {
     fs.writeFile(fileName, answers, (err) => {

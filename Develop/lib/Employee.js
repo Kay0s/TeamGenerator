@@ -3,26 +3,28 @@
 // methods:
 
 class Employee {
-    constructor(name, id, email){
-      this.name = name;
-      this.id = id;
-      this.email = email;
-    }
+  constructor(name, id, email) {
+    this.name = name;
+    this.id = id;
+    this.email = email;
+  }
 
-   function getRole(answers){// Returns 'Employee'(){
+  getName() {
+    return this.name;
+  }
 
-getName() 
-    return `${answers.name}`
+  getId() {
+    return this.id;
+  }
 
-getId()
-    return `${answers.id}`
+  getEmail() {
+    return this.email;
+  }
 
-
-getEmail()
-    return `${answers.email}`
-    
+  getRole() {
+    return "Employee";
+  }
 }
 
-getRole();
-
+//export the Employee class
 module.exports = Employee;
