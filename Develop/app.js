@@ -20,7 +20,8 @@ const render = require("./lib/htmlRenderer");
 //Intern?s : name, role, ID, email, and School
 // array of questions for user
 
-const questions = [
+async function userPrompts() {
+  const userInput = await inquirer.prompt([
     {
       type: "input",
       name: "name",
@@ -36,34 +37,86 @@ const questions = [
       name: "email",
       message: "What is your email?",
     },
-    
-    this.employee = new Employee ()
+    {
+      type: "input",
+      name: "office",
+      message: "What is your office number?",
+    },
+    {
+      type: "list",
+      name: "role",
+      message: "Who would you like to add?",
+      choices: ["Manager", "Engineer", "Intern"],
+    },
+  ]);
 
+  switch (userInput.role) {
+    case "Manager":
+      const officeNumberPrompt = await inquirer.prompt([
+        {
+          type: "input",
+          name: "officeNumber",
+          message: "What is your office number?",
+        },
+      ]);
+      let managerInfo = new Manager(userInput.name, userInput.id, userInput.email, officeNumberPrompt.officeNumber);
+      return managerInfo;
 
+    case "Engineer":
+      const githubPrompt = await inquirer.prompt([
+        {
+          type: "input",
+          name: "github",
+          message: "What is your GitHub Username?",
+        },
+      ]);
+      let engineerInfo = new Engineer(userInput.name, userInput.id, userInput.email, githubPrompt.github);
+      return engineerInfo;
 
-  // function to write HTML file
-  function render(fileName, answers) {
-    fs.writeFile(fileName, answers, (err) => {
-      if (err) {
-        console.log(error, "Please resubmit your answers.");
-      }
-    });
+    case "Intern":
+      const schoolPrompt = await inquirer.prompt([
+        {
+          type: "input",
+          name: "currentSchool",
+          message: "What is your current school?",
+        },
+      ]);
+      let internInfo = new Intern(userInput.name, userInput.id, userInput.email, schoolPrompt.currentSchool);
+      return internInfo;
+
+    default:
+      cconsole.log("Working");
   }
-  
-  // function to initialize program
-  const init = () => {
-    inquirer.prompt(questions).then((answers) => {
-      console.log(answers, "Success!  Team HTML generated");
-      writeToFile("createdTeam.Html", render(answers));
-    });
-  };
-  
-  // function call to initialize program
-  init();
+}
+async function team() {
+  const team = [];
+  let newTeamMember = await userPrompts();
+  team.push(newTeamMember);
+  console.log(team);
+}
 
+team();
 
-  
-  
+// function to write HTML file
+function render(fileName, answers) {
+  fs.writeFile(fileName, answers, (err) => {
+    if (err) {
+      console.log(error, "Please resubmit your answers.");
+    }
+  });
+}
+
+// function to initialize program
+const init = () => {
+  inquirer.prompt(questions).then((answers) => {
+    console.log(answers, "Success!  Team HTML generated");
+    writeToFile("createdTeam.Html", render(answers));
+  });
+};
+
+// function call to initialize program
+init();
+
 // and to create objects for each team member (using the correct classes as blueprints!)
 
 // After the user has input all employees desired, call the `render` function (required
@@ -82,4 +135,4 @@ const questions = [
 
 //Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
+// for the provided `render` function to work!
