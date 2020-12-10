@@ -9,6 +9,7 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const { doesNotMatch } = require("assert");
 console.log(Manager);
 
 // HINT: each employee type (manager, engineer, or intern) has slightly different
@@ -31,21 +32,26 @@ function generateTeam() {
         name: "name",
         message: "What is the team member's name?",
       },
-      
+    
       {
         type: "input",
         name: "id",
-        message: "What is team member's id?",
-      },
+        message: "What the team member's id?",
+     
+      if (typeof input !== 'number' ) {
+        done('Valid id must include a number');
+        return;
+      }
+    },
       {
         type: "input",
         name: "email",
-        message: "What is the team member's email?",
+        message: "What is the team member's email",
       },
       {
         type: "list",
         name: "role",
-        message: "What role would you like to add?",
+        message: "What is team member's role?",
         choices: ["Manager", "Engineer", "Intern"],
       },
     
