@@ -9,8 +9,6 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
-const { doesNotMatch } = require("assert");
-console.log(Manager);
 
 // HINT: each employee type (manager, engineer, or intern) has slightly different
 // information; wrgetRole(); // Returns 'Employee'ite your code to ask different questions via inquirer depending on
@@ -31,27 +29,45 @@ function generateTeam() {
         type: "input",
         name: "name",
         message: "What is the team member's name?",
+        validate: answer => {
+          if (answer === ""){
+            return true;
+          }
+          return "Please enter at least one character.";
+        }
       },
     
       {
         type: "input",
         name: "id",
         message: "What the team member's id?",
-     
-      if (typeof input !== 'number' ) {
-        done('Valid id must include a number');
-        return;
+        validate: answer => {
+      if (answer === 'number' ) {
+        return true;
       }
-    },
+      return "Team member id must include a number.";
+    }
+  },
       {
         type: "input",
         name: "email",
         message: "What is the team member's email",
+        validate: answer => {
+      if( /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/){
+        return true;
+        }
+        return "Please enter a valid email address";
+      }
       },
       {
         type: "list",
         name: "role",
         message: "What is team member's role?",
         choices: ["Manager", "Engineer", "Intern"],
-      },
-    
+        validate: answer => {
+          if (answer === ""){
+            return true;
+          }
+          return "Please choose team member's role.";
+        }
+    },
