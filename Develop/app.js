@@ -70,4 +70,27 @@ function generateTeam() {
           }
           return "Please choose team member's role.";
         }
-    },
+        if (choices === "Manager")
+    .then 
+    inquirer.prompt([  
+      {
+        message:"What is the office number?",
+        name: "officeNumber",
+      },
+      else if (choices === "Engineer")
+      .then 
+      inquirer.prompt([  
+        {
+          message:"What is the GitHub Username?",
+          name: "github",
+        },
+        else  (choices === "Intern")
+        .then 
+        inquirer.prompt([  
+          {
+            message:"What is the school name?",
+            name: "school",
+          },
+  
+
+    
