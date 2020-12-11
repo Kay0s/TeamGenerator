@@ -20,6 +20,15 @@ const render = require("./lib/htmlRenderer");
 //Intern?s : name, role, ID, email, and School
 // array of questions for user
 
+function manager() {
+  let manager = new Manager();
+}
+function engineer() {
+  let engineer = new Engineer();
+}
+function intern() {
+  let intern = new Intern();
+}
 const team = [
   function generateTeam() {
     inquirer
@@ -71,15 +80,17 @@ const team = [
           },
         },
       ])
-      .then((answer, choices) => {
-        if (choices === "Manager") {
+      .then((answer) => {
+        if (answer.name === "Manager") {
+          manager();
           inquirer.prompt([
             {
               message: "What is the office number?",
               name: "officeNumber",
             },
           ]);
-        } else if (choices === "Engineer") {
+        } else if (answer.name === "Engineer") {
+          engineer();
           inquirer.prompt([
             {
               message: "What is the GitHub Username?",
@@ -87,6 +98,7 @@ const team = [
             },
           ]);
         } else {
+          intern();
           inquirer.prompt([
             {
               message: "What is the school name?",
@@ -95,5 +107,19 @@ const team = [
           ]);
         }
       });
+    inquirer
+      .prompt([
+        {
+          message: "Would you like to add another team member?",
+          name: "addMember",
+        },
+      ])
+      .then((answer) => {
+        if (answer.addMember === "Yes") {
+          console.log("Team will be created!");
+          generateTeam();
+        }
+      });
   },
 ];
+generateTeam();
