@@ -1,0 +1,29 @@
+api wil:
+//handle crud(create, repeat, update delete)
+//have url
+//use proper http verbs to make it RESTful (GET, POST, PUt and Delete)
+//log all requests to the console
+
+html pages needed 
+1. home package
+2. view current
+3. make reservation - back will post
+
+
+
+Eval files to create API
+file structure
+- app/
+    ----- models/
+    ---------- bear.js  // our bear model
+    - node_modules/     // created by npm. holds our dependencies/packages
+    - package.json      // define all our node app and dependencies
+    - server.js         // configure our application and create routes
+
+
+
+//define our node package.js
+//start our server using express
+//define our model
+//declare our routes - using express
+//test our API

@@ -29,8 +29,11 @@ function engineer() {
 function intern() {
   let intern = new Intern();
 }
-const team = [
-  function generateTeam() {
+
+function generateTeam()
+
+const team = [];
+  
     inquirer
       .prompt([
         {
@@ -117,9 +120,8 @@ const team = [
       .then((answer) => {
         if (answer.addMember === "Yes") {
           console.log("Team will be created!");
-          generateTeam();
         }
       });
-  },
-];
+  
+
 generateTeam();
