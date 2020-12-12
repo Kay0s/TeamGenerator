@@ -44,13 +44,13 @@ To dynamically and quickly create a team HTML page, Inquirer NPM was utilized to
 
 ## Deployed
 
-- \*[Demo Video](https://youtu.be/ObRt8Nd-Nxk)
+- \*[Demo Video](https://drive.google.com/file/d/1EDGMbV-lj7i_fkcQMRzqDd1oE_Q9dxL9/view)
 - \*[Deployed website](https://kay0s.github.io/https://kay0s.github.io/TeamGenerator/)
 - \*[GitHub Repository](https://github.com/Kay0s/TeamGenerator)
 
 ### Screenshot of Passed Jest Test
 
-![Screenshot of Passed Jest Test](./generatedScreenshot.jpg)
+![Screenshot of Passed Jest Test](./test.jpg)
 
 ### Screenshot of Inquirer Questions Code
 
