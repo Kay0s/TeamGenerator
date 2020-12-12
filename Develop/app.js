@@ -12,28 +12,23 @@ const render = require("./lib/htmlRenderer");
 
 let team = [];
 
-const employees = team.map((newEmployee) => {
-  switch (newEmployee.role) {
-    case "Engineer":
-      return new Engineer(newEmployee.name, newEmployee.id, newEmployee.email, newEmployee.github);
-  }
-});
-
 function manager() {
   console.log(team);
   if (team[0].role === "Manager") {
-    let manager = new Manager(team[0].name, team[0].id, team[0].email, team[1].officeNumber);
-    console.log(manager);
+    render(new Manager(team[0].name, team[0].id, team[0].email, team[1].officeNumber));
+    console.log(render(myManager));
+    render(myManager);
+    console.log(render(myManager));
   }
 }
 
-// function engineer() {
-//   console.log(team);
-//   if (team[0].role === "Engineer") {
-//     let engineer = new Engineer(team[2].name, team[2].id, team[2].email, team[3].github);
-//     console.log(engineer);
-//   }
-// }
+function engineer() {
+  console.log(team);
+  if (team[0].role === "Engineer") {
+    let engineer = new Engineer(team[2].name, team[2].id, team[2].email, team[3].github);
+    console.log(engineer);
+  }
+}
 
 function intern() {
   console.log(team);
@@ -142,6 +137,17 @@ function generateTeam() {
               intern();
             }
           });
+        fs.writeFile(outputPath, render(manager), (err) => {
+          if (err) {
+            throw err;
+          }
+          console.log("Success!");
+        });
+      }
+    })
+    .catch((err) => {
+      if (err) {
+        throw err;
       }
     });
 }
