@@ -67,10 +67,12 @@ function generateTeam() {
   } else {
     manager();
   }
-  }
-  when : () => ans1.role === "engineer",
-          .prompt([
-            {
+  
+  inquirer.prompt(qs).then((ans1) => {
+    inquirer.prompt([
+{
+  when : () => ans1.role === "Engineer",
+        
               type: "input",
               message: "What is the GitHub Username?",
               name: "github",
@@ -90,10 +92,11 @@ function generateTeam() {
             } else {
               engineer();
             }
-            }
-            when : () => ans1.role === "intern",
-          .prompt([
-            {
+            inquirer.prompt(qs).then((ans1) => {
+              inquirer.prompt([
+          {
+            when : () => ans1.role === "Intern",
+  
               type: "input",
               message: "What is the school's name?",
               name: "school",
@@ -114,7 +117,7 @@ function generateTeam() {
               intern();
             }
             }
-
+          });
         fs.writeFile(outputPath, render([team]), (err) => {
           if (err) {
             throw err;
@@ -131,6 +134,5 @@ function generateTeam() {
 }
 
 generateTeam();
-
 
 
