@@ -10,33 +10,8 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-let team = [];
+const qs = [];
 
-function manager() {
-  console.log(team);
-  if (team[0].role === "Manager") {
-    render(new Manager(team[0].name, team[0].id, team[0].email, team[1].officeNumber));
-    console.log(render(myManager));
-    render(myManager);
-    console.log(render(myManager));
-  }
-}
-
-function engineer() {
-  console.log(team);
-  if (team[0].role === "Engineer") {
-    let engineer = new Engineer(team[2].name, team[2].id, team[2].email, team[3].github);
-    console.log(engineer);
-  }
-}
-
-function intern() {
-  console.log(team);
-  if (team[0].role === "Intern") {
-    let intern = new Intern(team[4].name, team[4].id, team[4].email, team[5].school);
-    console.log(intern);
-  }
-}
 
 function generateTeam() {
   inquirer
@@ -64,17 +39,18 @@ function generateTeam() {
         choices: ["Manager", "Engineer", "Intern"],
       },
     ])
-    .then((answers) => {
-      team.push(answers);
 
-      if (answers.role === "Manager") {
-        inquirer
-          .prompt([
-            {
-              type: "input",
-              message: "What is the office number?",
-              name: "officeNumber",
-            },
+    const team = [];
+
+    inquirer.prompt(qs).then((ans1) => {
+     inquirer.prompt([
+{
+ when : () => ans1.role === "manager",
+ type: "input",
+ message: "What is their office number",
+ name: "officeNumber",
+},
+
             {
               type: "confirm",
               message: "Would you like to add another team member?",
@@ -82,17 +58,17 @@ function generateTeam() {
             },
           ])
 
-          .then((answers) => {
-            team.push(answers);
-
-            if (answers.addMember) {
-              generateTeam();
-            } else {
-              manager();
-            }
-          });
-      } else if (answers.role === "Engineer") {
-        inquirer
+.then((ans2) => {
+  if (ans1.role === "manager") {
+    manager = new Manager(ans1.name, ans1.id, ans1.email, ans1.role, ans2.officeNumber);
+    team.push(manager);
+    (answers.addMember)
+    generateTeam();
+  } else {
+    manager();
+  }
+  }
+  when : () => ans1.role === "engineer",
           .prompt([
             {
               type: "input",
@@ -105,21 +81,21 @@ function generateTeam() {
               name: "addMember",
             },
           ])
-          .then((answers) => {
-            team.push(answers);
-
-            if (answers.addMember) {
+          .then((ans2) => {
+            if (ans1.role === "engineer") {
+              engineer = new Engineer(ans1.name, ans1.id, ans1.email, ans1.role, ans2.github);
+              team.push(engineer);
+              (answers.addMember)
               generateTeam();
             } else {
               engineer();
             }
-          });
-      } else {
-        inquirer
+            }
+            when : () => ans1.role === "intern",
           .prompt([
             {
               type: "input",
-              message: "What is the school name?",
+              message: "What is the school's name?",
               name: "school",
             },
             {
@@ -128,20 +104,22 @@ function generateTeam() {
               name: "addMember",
             },
           ])
-          .then((answers) => {
-            team.push(answers);
-
-            if (answers.addMember) {
+          .then((ans2) => {
+            if (ans1.role === "intern") {
+              intern = new Intern(ans1.name, ans1.id, ans1.email, ans1.role, ans2.school);
+              team.push(intern);
+              (answers.addMember)
               generateTeam();
             } else {
               intern();
             }
-          });
-        fs.writeFile(outputPath, render(manager), (err) => {
+            }
+
+        fs.writeFile(outputPath, render([team]), (err) => {
           if (err) {
             throw err;
           }
-          console.log("Success!");
+          console.log("Success, team HTML is created!");
         });
       }
     })
@@ -153,3 +131,6 @@ function generateTeam() {
 }
 
 generateTeam();
+
+
+
