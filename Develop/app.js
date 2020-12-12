@@ -20,9 +20,16 @@ const render = require("./lib/htmlRenderer");
 //Intern?s : name, role, ID, email, and School
 // array of questions for user
 
+let team = [];
+
 function manager() {
-  let manager = new Manager();
+  console.log(team[0].role + "role");
+  if (team[0].role === "Manager") {
+    let manager = new Manager(team[0].name, team[0].id, team[0].email, team[1].officeNumber);
+    console.log(manager);
+  }
 }
+
 function engineer() {
   let engineer = new Engineer();
 }
@@ -30,98 +37,88 @@ function intern() {
   let intern = new Intern();
 }
 
-function generateTeam()
+function generateTeam() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "What is the team member's name?",
+      },
 
-const team = [];
-  
-    inquirer
-      .prompt([
-        {
-          type: "input",
-          name: "name",
-          message: "What is the team member's name?",
-          validate: (answer) => {
-            if (answer === "") {
-              return true;
-            }
-            return "Please enter at least one character.";
-          },
-        },
-
-        {
-          type: "input",
-          name: "id",
-          message: "What the team member's id?",
-          validate: (answer) => {
-            if (answer === "number") {
-              return true;
-            }
-            return "Team member id must include a number.";
-          },
-        },
-        {
-          type: "input",
-          name: "email",
-          message: "What is the team member's email",
-          validate: (answer) => {
-            if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/) {
-              return true;
-            }
-            return "Please enter a valid email address";
-          },
-        },
-        {
-          type: "list",
-          name: "role",
-          message: "What is team member's role?",
-          choices: ["Manager", "Engineer", "Intern"],
-          validate: (answer) => {
-            if (answer === "") {
-              return true;
-            }
-            return "Please choose team member's role.";
-          },
-        },
-      ])
-      .then((answer) => {
-        if (answer.name === "Manager") {
-          manager();
-          inquirer.prompt([
+      {
+        type: "input",
+        name: "id",
+        message: "What the team member's id?",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "What is the team member's email?",
+      },
+      {
+        type: "list",
+        name: "role",
+        message: "What is team member's role?",
+        choices: ["Manager", "Engineer", "Intern"],
+      },
+    ])
+    .then((answers) => {
+      team.push(answers);
+      if (answers.role === "Manager") {
+        inquirer
+          .prompt([
             {
               message: "What is the office number?",
               name: "officeNumber",
             },
-          ]);
-        } else if (answer.name === "Engineer") {
-          engineer();
-          inquirer.prompt([
-            {
-              message: "What is the GitHub Username?",
-              name: "github",
-            },
-          ]);
-        } else {
-          intern();
-          inquirer.prompt([
-            {
-              message: "What is the school name?",
-              name: "school",
-            },
-          ]);
-        }
-      });
-    inquirer
-      .prompt([
-        {
-          message: "Would you like to add another team member?",
-          name: "addMember",
-        },
-      ])
-      .then((answer) => {
-        if (answer.addMember === "Yes") {
-          console.log("Team will be created!");
-        }
-      });
-  
+          ])
+          .then((answers) => {
+            team.push(answers);
+            manager();
+            console.log(team);
+          });
+      }
+    });
+}
+// .then((answer) => {
+//   if (answers.role === "Manager") {
+//     manager();
+//     inquirer.prompt([
+//       {
+//         message: "What is the office number?",
+//         name: "officeNumber",
+//       },
+//     ]);
+//   } else if (answer.role === "Engineer") {
+//     engineer();
+//     inquirer.prompt([
+//       {
+//         message: "What is the GitHub Username?",
+//         name: "github",
+//       },
+//     ]);
+//   } else {
+//     intern();
+//     inquirer.prompt([
+//       {
+//         message: "What is the school name?",
+//         name: "school",
+//       },
+//     ]);
+//   }
+//   inquirer
+//     .prompt([
+//       {
+//         message: "Would you like to add another team member?",
+//         name: "addMember",
+//       },
+//     ])
+//     .then((answer) => {
+//       if (answer.addMember === "Yes") {
+//         console.log("Team will be created!");
+//       }
+//     });
+// });
 
 generateTeam();
