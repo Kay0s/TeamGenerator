@@ -4,7 +4,7 @@
 
 ## Overview
 
-As a manager, I want to be able to dynamically and quickly create a HTML files with employee's information using answers
+As a manager, I want to be able to dynamically and quickly create an HTML file with employees' information using answers
 provided from Inquirer NPM.
 
 ## Table of Contents
@@ -12,6 +12,7 @@ provided from Inquirer NPM.
 - [Description](#description)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Test](#test)
 - [Deployed](#deployed)
 - [Tools](#tools)
 - [Research](#research)
@@ -42,15 +43,15 @@ To dynamically and quickly create a team HTML page, Inquirer NPM was utilized to
   - Manager - office, Engineer - Github Username, and Intern - school name.
 - An HTML file with the user's reponses regarding their team is created.
 
+## Test
+
+![Screenshot of Passed Jest Test](./test.jpg)
+
 ## Deployed
 
 - \*[Demo Video](https://drive.google.com/file/d/1EDGMbV-lj7i_fkcQMRzqDd1oE_Q9dxL9/view)
 - \*[Deployed website](https://kay0s.github.io/https://kay0s.github.io/TeamGenerator/)
 - \*[GitHub Repository](https://github.com/Kay0s/TeamGenerator)
-
-### Screenshot of Passed Jest Test
-
-![Screenshot of Passed Jest Test](./test.jpg)
 
 ### Screenshot of Inquirer Questions Code
 
