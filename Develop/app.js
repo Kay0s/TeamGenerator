@@ -116,15 +116,15 @@ function generateTeam() {
             } else {
               intern();
             }
-            }
-          });
+            },
+          })
         fs.writeFile(outputPath, render([team]), (err) => {
           if (err) {
             throw err;
           }
           console.log("Success, team HTML is created!");
         });
-      }
+      },
     })
     .catch((err) => {
       if (err) {
